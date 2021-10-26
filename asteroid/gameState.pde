@@ -16,6 +16,7 @@ public class GameState extends States
     super(inputManager);
     this.State = state;
     InitialiseObj();
+    println(ship.position);
   }
   
   private void InitialiseObj()
@@ -74,6 +75,9 @@ public class GameState extends States
         else
         {
           objectList.get(i).Display();
+          if(objectList.get(i) == ship)
+          {
+          }
         }
       }
     }

@@ -20,8 +20,8 @@ public class Ship extends ActorGravitable
 
   public Ship()
   {
-    //super(width/2,height/2);
-    super(width/2,height-1);
+    super(width/2,height/2);
+    //super(width/2,height-1);
     angleAcc = (radians(0));
     angle = (radians(0));
     acceleration = new PVector();
@@ -39,11 +39,14 @@ public class Ship extends ActorGravitable
   @Override
   public void Update(float delta)
   {
+    ApplyCamOffset();
     Rotate(delta);
-    CalculateGravity(delta);
+    if(gravitables != null && gravitables.size() > 0)
+      CalculateGravity(delta);
     CalculateSumForces(delta, forcesApplied);
     ManageScreenBonndary();
     ShootingPoint.Update(delta,this);
+    
   }
   private void ManageScreenBonndary()
   {
@@ -124,8 +127,8 @@ public class Ship extends ActorGravitable
   @Override
   void GotCollided(Actor sender)
   {
-    if(sender.getClass().getSimpleName().equals("Bullet"))
-      isAlive = false;
+    if(sender.getClass().getSimpleName().equals("Bullet")){}
+      //isAlive = false;
     else if(sender.getClass().getSimpleName().equals("Planet"))
     {
       // calculer la position relative au bord du cercle pour arreter le vaisseau

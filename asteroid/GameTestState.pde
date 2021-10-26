@@ -10,10 +10,10 @@ public class GameTestState extends States
     super(inputManager);
     this.State = state;
 
-    p1 = new Planet(width/2,height/2,125,color(255,0,0),1000000000000L);
-    p1.isGravitable = false;
-    //p2 = new Planet(width/2, height/2 - 200,50,color(255,0,0),1000);
-    //p2.velocity.x = 0.88;
+    p1 = new Planet(width/2,0,125,color(255,0,0),1222222222222222L);
+    //p1.isGravitable = false;
+    //p2 = new Planet(width/2, 100,50,color(255,0,0),31111111111111L);
+    //p2.velocity.x = 1;
     gravitables = new ArrayList<Actor>();
     ship = new Ship();
     gravitables.add(p1);
@@ -21,21 +21,23 @@ public class GameTestState extends States
     gravitables.add(ship);
     p1.SetGravitables(gravitables);
     //p2.SetGravitables(gravitables);
-    ship.mass = 10;
+    ship.mass = 100;
     ship.SetGravitables(gravitables);
-    
+    cam.setActorFolloed(ship);
   }
 
   @Override
   public void Update(float delta)
   {
     background(175);
+    cam.setOffsets();
+    ship.Update(delta);
+    
     p1.Update(delta);
     //p2.Update(delta);
     TestMovements();
-    ship.Update(delta);
-    //println(ship.gravity);
-    //println(p2.gravity);
+    
+    cam.resetOffset();
   }
   @Override
   public void Display()

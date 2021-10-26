@@ -47,6 +47,7 @@ public class Planet extends ActorGravitable implements IObserverer
 
   public void Update(float delta)
   {
+    ApplyCamOffset();
     if(isGravitable)
       CalculateGravity(delta);
     CalculateSumForces(delta,forcesApplied);

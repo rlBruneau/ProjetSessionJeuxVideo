@@ -5,6 +5,8 @@ long lastTick;
 
 InputManager inputManager;
 ObjectManager objectManager;
+public Camera cam = new Camera();
+
 
 public void setup()
 {

@@ -5,7 +5,7 @@ public abstract class Actor extends GraphicObject implements ICollidable
   protected PVector acceleration;
   protected PVector friction;
   protected PVector gravity;
-  protected float mass;
+  protected float mass = 1;
   private PVector resultant;
   public int w;
   public int h;
@@ -16,13 +16,13 @@ public abstract class Actor extends GraphicObject implements ICollidable
   protected PVector velocity = new PVector();
   
   //object constant
-  protected float gravityAccel = 98;
+  protected float gravityAccel = 0;
   protected float frictioncoefficient;
   public Actor(float x, float y)
   {
     super(x,y);
     resultant = new PVector();
-    gravity = new PVector(0,gravityAccel);
+    gravity = new PVector();
     forces = new ArrayList<PVector>(){
       {
         add(acceleration);
@@ -59,19 +59,24 @@ public abstract class Actor extends GraphicObject implements ICollidable
     double a;
     double f = resultant.mag();
     a = f/mass;
+    resultant.normalize();
     resultant.mult((float)a);
     velocity.add(resultant.mult(delta));
-    position.add(velocity);
-    if(this.getClass().getSimpleName().equals("Ship"))
-    {
-      println(a);
-    }
-
+    
+      position.add(velocity);
   }
+
   private void AddForce(float delta, PVector force)
   {
-     resultant.add(force.copy().mult(delta));
+    resultant.add(force.copy());
   }
+
+  protected void ApplyCamOffset()
+  {
+    position.x -= cam.xOff;
+    position.y -= cam.yOff;
+  }
+
 
   //**********************************************************************************
   //*************ICollidable method empty to override in child class******************
