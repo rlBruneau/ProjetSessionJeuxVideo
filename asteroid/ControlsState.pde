@@ -25,7 +25,7 @@ public class ControlState extends States
   public void Display()
   {
       background(175);
-      Selector.Display();
+      Selector.Display(-1,-1);
       DisplayMenuItems();
   }
   @Override
@@ -50,7 +50,7 @@ public class ControlState extends States
   {
     for(MenuItem mi : menuItems)
     {
-      mi.Display();
+      mi.Display(-1,-1);
     }
   }
 
@@ -108,7 +108,6 @@ public class ControlState extends States
     @Override
     public void Execute()
     {
-      println(inputManager);
       inputManager.SetInput(Selector.SelectedOption,Selector);
     }
     @Override

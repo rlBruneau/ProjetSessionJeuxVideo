@@ -15,7 +15,7 @@ public class Rectangle extends GraphicObject
   {
 
   }
-  public void Display()
+  public void Display(float x, float y)
   {
     rect(position.x, position.y, rectangleW, rectangleH);
   }

@@ -10,7 +10,7 @@ public class Bullet extends Actor
     }
 
     @Override
-    public void Display()
+    public void Display(float x, float y)
     {
         pushMatrix();
             translate(position.x,position.y);
@@ -56,8 +56,6 @@ public class Bullet extends Actor
         {
             obj.GotCollided(this);
             isAlive = false;
-
-            println(dist(obj.position.x,obj.position.y,position.x,position.y) + " " + (BULLET_RADIUS + obj.radius) + " " + BULLET_RADIUS + " " + obj.radius);
         }
     }
 }

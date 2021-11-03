@@ -58,7 +58,7 @@ public class StartGameState extends States
   {
     background(175);
     MainWindow();
-    Selector.Display();
+    Selector.Display(-1,-1);
     DisplayMenuItems();
   }
 
@@ -77,7 +77,7 @@ public class StartGameState extends States
   {
     for(MenuItem mi : menuItems)
     {
-      mi.Display();
+      mi.Display(-1,-1);
     }
   }
   

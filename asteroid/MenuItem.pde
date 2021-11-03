@@ -62,20 +62,20 @@ public class MenuItem extends GraphicObject
     }
 
     @Override
-    public void Display()
+    public void Display(float x,float y)
     {
         textSize(messageSize);
         if(selector.SelectedOption == enumValue)
         {
             fill(selectedRectColor);
-            rect(x, y, w, h);
+            rect(this.x, this.y, w, h);
             fill(selectedTextColor);
             text(message,textX,textY);
         }
         else
         {
             fill(fillColor);
-            rect(x,y,w,h);
+            rect(this.x,this.y,w,h);
             fill(textColor);
             text(message,textX,textY);
         }

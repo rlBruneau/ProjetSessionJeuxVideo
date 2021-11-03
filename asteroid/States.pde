@@ -7,7 +7,6 @@ public class States
   private States PauseState;
   private States StartGameState;
   private States ControlState;
-  private States GameTestState;
   private InputManager inputManager;
   protected HashMap<KeyMap,Boolean> keyMap;
   //setters et getters
@@ -56,8 +55,6 @@ public class States
   public void ControlState(States state){CurrentState = state;}
   public States ControlState(){return ControlState;}
 
-  public void GameTestState(States state){CurrentState = state;}
-  public States GameTestState(){return GameTestState;}
   //fin attribut et getters/setters
   
   public  void Update(float delta)

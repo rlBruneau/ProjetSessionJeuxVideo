@@ -84,7 +84,7 @@ class Boid extends Actor {
     CallCollisionMethods();    
   }
   
-  public void Display() {
+  public void Display(float x, float y) {
     noStroke();
     fill (fillColor);
     
@@ -287,7 +287,6 @@ class Boid extends Actor {
             obj.GotCollided(this);
             ship=null;
             isAlive = false;
-            println("TEWAT");
         }
     }
 

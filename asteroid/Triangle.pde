@@ -15,7 +15,7 @@ public class Triangle extends GraphicObject
     {
         
     }
-    public void Display()
+    public void Display(float x, float y)
     {
         triangle(trianglePoint1.x,trianglePoint1.y,trianglePoint2.x,trianglePoint2.y,trianglePoint3.x,trianglePoint3.y);
     }

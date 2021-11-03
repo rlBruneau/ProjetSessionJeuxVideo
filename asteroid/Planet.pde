@@ -8,17 +8,19 @@ public class Circle extends GraphicObject
     this.r = r;
     this.body = body;
     this.c = c;
+    position = new PVector();
   }
 
   public void Update(float delta)
   {
 
   }
-  public void Display()
+  public void Display(float x, float y)
   {
     noStroke();
     fill(c);
-    ellipse(body.position.x,body.position.y,r*2,r*2);
+    PVector pos = getDisplayPosition();
+    ellipse(x,y,r*2,r*2);
   }
 }
 
@@ -47,16 +49,15 @@ public class Planet extends ActorGravitable implements IObserverer
 
   public void Update(float delta)
   {
-    ApplyCamOffset();
     if(isGravitable)
       CalculateGravity(delta);
     CalculateSumForces(delta,forcesApplied);
     CallCollisionMethods();
   }
-  public void Display()
+  public void Display(float x, float y)
   {
-    outline.Display();
-    crater.Display();
+    outline.Display(x,y);
+    crater.Display(x,y);
   }
 
   //=================================
@@ -77,7 +78,7 @@ public class Planet extends ActorGravitable implements IObserverer
   }
 
   private void TestCollision(Actor obj)
-  {//println("Collided");
+  {
     if(radius + obj.radius > dist(obj.position.x,obj.position.y,position.x,position.y) && obj != this)
     {
       obj.GotCollided(this);

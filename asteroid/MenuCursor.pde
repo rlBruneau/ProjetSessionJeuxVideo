@@ -50,7 +50,7 @@ public class MenuCursor<T extends Enum<T>> extends Actor
   }
   
   @Override
-  public void Display()
+  public void Display(float x, float y)
   {
     fill(fillColor);
     triangle(position.x,position.y,position.x + w, position.y + (h/2), position.x, position.y+h);

@@ -18,6 +18,10 @@ public abstract class GraphicObject
     angle = 0;
   }
   public abstract void Update(float delta);
-  public abstract void Display();
+  public abstract void Display(float x, float y);
   
+  protected PVector getDisplayPosition()
+  {
+    return new PVector(position.x - cam.xOff, position.y - cam.yOff);
+  }
 }

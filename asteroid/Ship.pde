@@ -17,11 +17,18 @@ public class Ship extends ActorGravitable
   private Rectangle rightPropulsor;
   private color c =  color(255);
   private ShipShootingPoint ShootingPoint;
+  private float worldWidth;
+  private float worldHeight;
 
-  public Ship()
+
+  public Ship(float worldWidth, float worldHeight)
   {
     super(width/2,height/2);
     //super(width/2,height-1);
+
+    this.worldWidth = worldWidth;
+    this.worldHeight = worldHeight;
+
     angleAcc = (radians(0));
     angle = (radians(0));
     acceleration = new PVector();
@@ -39,7 +46,6 @@ public class Ship extends ActorGravitable
   @Override
   public void Update(float delta)
   {
-    ApplyCamOffset();
     Rotate(delta);
     if(gravitables != null && gravitables.size() > 0)
       CalculateGravity(delta);
@@ -50,28 +56,43 @@ public class Ship extends ActorGravitable
   }
   private void ManageScreenBonndary()
   {
-    if(position.x + (w/2) < 0)  position.x = width + (w/2);
-    if(position.x - (w/2) > width)  position.x = 0 - (w/2);
-    if(position.y + (h/2) < 0)  position.y = height + (h/2);
-    if(position.y - (h/2) > height)  position.y = 0 + (h/2);
+    if(position.x + (w/2) < 0)
+    {
+       position.x = worldWidth;
+       cam.setNewOffsets(worldWidth - (width/2),cam.yOff);
+    }
+    if(position.x - (w/2) > worldWidth)
+    {
+      position.x = 0 - (w/2);
+      cam.setNewOffsets(0 - width/2,cam.yOff);
+    }
+    if(position.y + (h/2) < 0)
+    {
+      position.y = worldHeight + (h/2);
+      cam.setNewOffsets(cam.xOff,worldHeight - (height/2));
+    }
+    if(position.y - (h/2) > worldHeight)
+    {
+      position.y = 0 + (h/2);
+      cam.setNewOffsets(cam.xOff,0 - height/2);
+    }
   }
 
   @Override
-  public void Display()
+  public void Display(float x, float y)
   { 
     fill(c);
     pushMatrix();
       noStroke();
-      translate(position.x,position.y);
+      translate(x,y);
       rotate(angle);
-      shipTriagle.Display();
+      shipTriagle.Display(-1,-1);
       DradPropulsors();
-      //fill(255,0,0,150);
-      //ellipse(0,0,radius*2,radius*2);
-      //fill(255);
       stroke(255,0,0);
     popMatrix();
     stroke(0,255,0);
+    strokeWeight(4);
+    strokeWeight(1);
   }
 
   private void InitShip()
@@ -92,8 +113,8 @@ public class Ship extends ActorGravitable
     {
       fill(255,0,0);
     }
-    leftPropulsor.Display();
-    rightPropulsor.Display();
+    leftPropulsor.Display(leftPropulsor.position.x - cam.xOff, leftPropulsor.position.y - cam.yOff);
+    rightPropulsor.Display(rightPropulsor.position.x - cam.xOff, rightPropulsor.position.y - cam.yOff);
     fill(255);
   }
 

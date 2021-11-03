@@ -71,12 +71,6 @@ public abstract class Actor extends GraphicObject implements ICollidable
     resultant.add(force.copy());
   }
 
-  protected void ApplyCamOffset()
-  {
-    position.x -= cam.xOff;
-    position.y -= cam.yOff;
-  }
-
 
   //**********************************************************************************
   //*************ICollidable method empty to override in child class******************

@@ -1,12 +1,17 @@
 public class Camera
 {
     private Actor actorFolloed;
-    float xOff = 0;
-    float yOff = 0;
+    private float xOff = 0;
+    private float yOff = 0;
+    private float viewPortX;
+    private float viewPortY;
 
-    public void setActorFolloed(Actor actor)
+
+    public void init(Actor actor, float viewPortX,float viewPortY)
     {
         actorFolloed = actor;
+        this.viewPortX = viewPortX;
+        this.viewPortY = viewPortY;
     }
 
     public void setOffsets()
@@ -14,10 +19,17 @@ public class Camera
         xOff += actorFolloed.velocity.x;
         yOff += actorFolloed.velocity.y;
     }
+
     public void resetOffset()
     {
         xOff = 0;
         yOff = 0;
+    }
+
+    public void setNewOffsets(float xOff, float yOff)
+    {
+        this.xOff = xOff;
+        this.yOff = yOff;
     }
 
 }

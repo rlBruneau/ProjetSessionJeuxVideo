@@ -1,36 +1,40 @@
-
-
 public class GameState extends States
 {
-  private final int MAX_BULLET_NUMBER = 10;
-  private final int TIME_BETWEEN_BULLET = 250;
-  private int bulletTimer = 0;
   private States State;
+  private Planet p1;
+  private Planet p2;
   private Ship ship;
-  ArrayList<Actor> Bullets = new ArrayList<Actor>();
-  ArrayList<Actor> AllActorsExceptBullets = new ArrayList<Actor>();
-  ArrayList<Boid> flock;
-  int flockSize = 10;
+  private ArrayList<Actor> gravitables;
+  private Camera camForMiniMap;
+  private float worldWidth;
+  private float worldHeight;
+  private HUD hud;
+
   public GameState(States state, InputManager inputManager)
   {
     super(inputManager);
     this.State = state;
-    InitialiseObj();
-    println(ship.position);
-  }
-  
-  private void InitialiseObj()
-  {
-    ship =  new Ship();
-    AllActorsExceptBullets.add(ship);
-    flock = new ArrayList<Boid>();
-    for (int i = 0; i < flockSize; i++) {
-      Boid b = new Boid(new PVector(random(0, width), random(0, height)), new PVector(random (-2, 2), random(-2, 2)));
-      b.fillColor = color(random(255), random(255), random(255));
-      flock.add(b);
-      AllActorsExceptBullets.add(b);
-      b.setShip(ship);
-    }
+
+    worldWidth = 5120*2;
+    worldHeight = 3840*2;
+    p1 = new Planet(worldWidth/2,worldHeight/2,125,color(255,0,0),100000000000000000L);
+    p1.isGravitable = false;
+    p2 = new Planet(worldWidth/2, worldHeight/4,50,color(255,0,0),511111111111111L);
+    p2.velocity.x = 4;
+    gravitables = new ArrayList<Actor>();
+    ship = new Ship(worldWidth,worldHeight);
+    gravitables.add(p1);
+    gravitables.add(p2);
+    gravitables.add(ship);
+    p1.SetGravitables(gravitables);
+    p2.SetGravitables(gravitables);
+    ship.mass = 100;
+    ship.SetGravitables(gravitables);
+    cam.init(ship,width,height);
+    camForMiniMap = new Camera();
+    camForMiniMap.init(ship,worldWidth,worldHeight);
+
+    hud = new HUD(ship);
   }
 
   @Override
@@ -40,72 +44,33 @@ public class GameState extends States
     {
       State.CurrentState(StateEnum.START);
     }
-    TestBulletShooting(delta);
+    background(175);
+    cam.setOffsets();
+    hud.Update(delta);
+    ship.Update(delta);
+    p1.Update(delta);
+    p2.Update(delta);
     TestMovements();
-    UpdateActors(delta);
-    for (Boid b : flock) 
-    {
-      if(b.isAlive)
-      {
-        b.flock(flock);
-        b.Update(delta);
-      }
-      
-    }
   }
   @Override
   public void Display()
-  {
-    background(0);
+  { 
+    p1.Display(p1.position.x - cam.xOff, p1.position.y - cam.yOff);
+    ship.Display(ship.position.x - cam.xOff, ship.position.y - cam.yOff);
+    //p1.Display();
+    p2.Display(p2.position.x - cam.xOff, p2.position.y - cam.yOff);
 
-    TestIfObjectIsAlive(Bullets);
-    TestIfObjectIsAlive(AllActorsExceptBullets);
-  }
+    hud.Display(ship.position.x -cam.xOff, ship.position.y-cam.yOff);
 
-  private void TestIfObjectIsAlive(ArrayList<Actor> objectList)
-  {
-    if(objectList.size()>0)
-    {
-      for(int i = 0; i < objectList.size(); i++)
-      {
-        if(!objectList.get(i).isAlive)
-        {
-          objectList.remove(i);
-        }
-        else
-        {
-          objectList.get(i).Display();
-          if(objectList.get(i) == ship)
-          {
-          }
-        }
-      }
-    }
-  }
-
-  private void TestBulletShooting(float delta)
-  {
-    if(ship!=null)
-    {
-      bulletTimer += delta * 1000;
-      if(bulletTimer > TIME_BETWEEN_BULLET)
-        bulletTimer = TIME_BETWEEN_BULLET;
-      if(keyMap.get(KeyMap.SELECT))
-      {
-        
-        if(bulletTimer >= TIME_BETWEEN_BULLET && Bullets.size() < MAX_BULLET_NUMBER)
-        {
-          Bullet bul = new Bullet(ship.ShootingPoint.point.x,ship.ShootingPoint.point.y, ship.angle + HALF_PI, ship.velocity.mag(),delta);
-          Bullets.add(bul);
-          bulletTimer = 0;
-          for(Actor a : AllActorsExceptBullets)
-          {
-            bul.AddCollidable(a);
-          }
-        }
-      }
-    }
-  }
+    fill(0,255,0,80);
+    rect(0,0,width/4,height/4);
+    scale(width/worldWidth,height/worldHeight);
+    p1.Display(p1.position.x/4, p1.position.y/4);
+    p2.Display(p2.position.x/4, p2.position.y/4);
+    ship.Display(ship.position.x/4, ship.position.y/4);
+    scale(width*worldWidth,height*worldHeight);
+    
+  } 
 
   private void TestMovements()
   {
@@ -135,22 +100,6 @@ public class GameState extends States
       else
       {
         ship.acceleration.mult(0);
-      }
-    }
-  }
-
-  private void UpdateActors(float delta)
-  {
-    UpdateActorsGeneral(delta,Bullets);
-    ship.Update(delta);
-  }
-  private void UpdateActorsGeneral(float delta, ArrayList<Actor> objList)
-  {
-    if(objList.size() > 0)
-    {
-      for(Actor obj : objList)
-      {
-        obj.Update(delta);
       }
     }
   }

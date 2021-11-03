@@ -11,7 +11,7 @@ public Camera cam = new Camera();
 public void setup()
 {
   lastTick = 0;
-  size(1200,920);
+  size(1200,920,P2D);
   inputManager = new InputManager();
   objectManager = new ObjectManager(inputManager);
 }
