@@ -4,7 +4,7 @@ public class GameState extends States
   private Planet p1;
   private Planet p2;
   private Ship ship;
-  private ArrayList<Actor> gravitables;
+  private ArrayList<ActorGravitable> gravitables;
   private Camera camForMiniMap;
   private float worldWidth;
   private float worldHeight;
@@ -21,7 +21,7 @@ public class GameState extends States
     p1.isGravitable = false;
     p2 = new Planet(worldWidth/2, worldHeight/4,50,color(255,0,0),511111111111111L);
     p2.velocity.x = 4;
-    gravitables = new ArrayList<Actor>();
+    gravitables = new ArrayList<ActorGravitable>();
     ship = new Ship(worldWidth,worldHeight);
     gravitables.add(p1);
     gravitables.add(p2);

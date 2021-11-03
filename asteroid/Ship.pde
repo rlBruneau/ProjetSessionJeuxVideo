@@ -4,7 +4,7 @@ public class Ship extends ActorGravitable
   private final int RIGHT = 1;
   private final int LEFT = -1;
   private final float ROTATION_SPEED = 160;
-  public final float ACCELERATION = 120;
+  public final float ACCELERATION = 300;
   private final float MAX_SPEED = 15;
   private ArrayList<PVector> forcesApplied;
   public int Rotation = 0;
@@ -19,6 +19,9 @@ public class Ship extends ActorGravitable
   private ShipShootingPoint ShootingPoint;
   private float worldWidth;
   private float worldHeight;
+  public int landing = 0;
+  private boolean isOnPlanet = false;
+  private Actor planetLanded = null;
 
 
   public Ship(float worldWidth, float worldHeight)
@@ -47,8 +50,14 @@ public class Ship extends ActorGravitable
   public void Update(float delta)
   {
     Rotate(delta);
+    if(isOnPlanet)
+    {
+      //TODO: ajouter la force normal a l'équation pour permettre à la cam de bien fonctionné.
+      velocity.set(planetLanded.velocity.x, planetLanded.velocity.y);
+    }
     if(gravitables != null && gravitables.size() > 0)
       CalculateGravity(delta);
+    
     CalculateSumForces(delta, forcesApplied);
     ManageScreenBonndary();
     ShootingPoint.Update(delta,this);
@@ -129,7 +138,7 @@ public class Ship extends ActorGravitable
   }
   public void SpeedUp()
   {
-    
+    isOnPlanet = false;
     if(velocity.mag() < maxSpeed)
     {
       acceleration.x = PVector.fromAngle(angle + HALF_PI).mult(ACCELERATION).x;
@@ -152,7 +161,36 @@ public class Ship extends ActorGravitable
       //isAlive = false;
     else if(sender.getClass().getSimpleName().equals("Planet"))
     {
-      // calculer la position relative au bord du cercle pour arreter le vaisseau
+      float dist = radius + sender.radius;
+          PVector between = new PVector(position.x-sender.position.x,position.y-sender.position.y);
+          position.x = sender.position.x + (dist * cos(between.heading()));
+          position.y = sender.position.y + (dist * sin(between.heading()));
+
+          isOnPlanet = true;  
+          planetLanded = sender;
+
+          
+          
+          //isGravitable = false;
+      /*if(velocity.mag() < 1)
+      {
+        if(PVector.angleBetween(gravity,PVector.fromAngle(angle)) - PI > radians(25) || PVector.angleBetween(gravity,PVector.fromAngle(angle)) - PI < radians(-25))
+        {
+          isAlive = false;
+        }
+        else
+        {
+          float dist = radius + sender.radius;
+          PVector between = new PVector(position.x-sender.position.x,position.y-sender.position.y);
+          position.x = dist * cos(between.heading());
+          position.y = dist * sin(between.heading());
+
+        }
+      }
+      else
+      {
+        isAlive = false;
+      }*/
     }
   }
 }

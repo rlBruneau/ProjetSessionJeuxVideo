@@ -1,15 +1,16 @@
 public abstract class ActorGravitable extends Actor
 {
-    protected ArrayList<Actor> gravitables;
+    protected ArrayList<ActorGravitable> gravitables;
     public ActorGravitable(int x, int y){super(x,y);}
     public ActorGravitable(){super();}
+    public boolean isGravitable = true;
     protected void CalculateGravity(float delta)
     {
         gravity.x=0;
         gravity.y=0;
         if(gravitables != null)
         {
-            for(Actor a : gravitables)
+            for(ActorGravitable a : gravitables)
             {
                 if(a != this)
                 {
@@ -28,7 +29,7 @@ public abstract class ActorGravitable extends Actor
         }
     }
 
-    public void SetGravitables(ArrayList<Actor> gravitables)
+    public void SetGravitables(ArrayList<ActorGravitable> gravitables)
     {
         this.gravitables = gravitables;
     }

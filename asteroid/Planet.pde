@@ -27,7 +27,6 @@ public class Circle extends GraphicObject
 
 public class Planet extends ActorGravitable implements IObserverer
 {
-  public boolean isGravitable = true;
   private Circle outline;
   private Circle crater;
   private ArrayList<PVector> forcesApplied;

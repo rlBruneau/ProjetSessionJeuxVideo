@@ -38,10 +38,9 @@ public class Arrow extends GraphicObject
 public class HUD extends GraphicObject
 {
     String speedLable = ""; 
-    float rectx;
-    float recty = 10;
-    float rectw;
-    float recth = 15;
+    String landingPointLabel ="";
+    Rectangle speedLabelRect = new Rectangle(0,10,0,15);
+    Rectangle landingPointLabelRect = new Rectangle(0,30,0,15);
     Ship ship;
     Arrow arrow;
 
@@ -55,10 +54,13 @@ public class HUD extends GraphicObject
     public void Display(float x, float y)
     {
         fill(0,255,0);
-        rect(rectx,recty,rectw,recth);
+        speedLabelRect.Display(-1,-1);
         fill(255,0,0);
-        text(speedLable,rectx,recth + 10);
-    
+        text(speedLable,speedLabelRect.position.x,speedLabelRect.rectangleH + 10);
+        fill(0,255,0);
+        landingPointLabelRect.Display(-1,-1);
+        fill(255,0,0);
+        text(landingPointLabel,landingPointLabelRect.position.x,landingPointLabelRect.position.y + 12);
         arrow.Display(x,y);
         
         noStroke();
@@ -67,7 +69,11 @@ public class HUD extends GraphicObject
     {
         arrow.Update(delta);
         speedLable = "Speed : " + String.format("%.02f",ship.velocity.mag()); 
-        rectx = width/2 - textWidth(speedLable)/2;
-        rectw = textWidth(speedLable);
+        landingPointLabel = "Landings : " + ship.landing; 
+        speedLabelRect.position.x = width/2 - textWidth(speedLable)/2;
+        speedLabelRect.rectangleW = textWidth(speedLable);
+
+        landingPointLabelRect.position.x = width/2 - textWidth(speedLable)/2;
+        landingPointLabelRect.rectangleW = textWidth(speedLable);
     }
 }
