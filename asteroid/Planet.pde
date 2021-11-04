@@ -30,8 +30,10 @@ public class Planet extends ActorGravitable implements IObserverer
   private Circle outline;
   private Circle crater;
   private ArrayList<PVector> forcesApplied;
-  public Planet(float x, float y, float r, color c, float mass)
+  public int landingPoints;
+  public Planet(float x, float y, float r, color c, float mass, int landingPoints)
   {
+    this.landingPoints = landingPoints;
     position = new PVector(x,y);
     this.radius = r;
     outline = new Circle(r,c,this);

@@ -17,9 +17,9 @@ public class GameState extends States
 
     worldWidth = 5120*2;
     worldHeight = 3840*2;
-    p1 = new Planet(worldWidth/2,worldHeight/2,125,color(255,0,0),100000000000000000L);
+    p1 = new Planet(worldWidth/2,worldHeight/2,125,color(255,0,0),100000000000000000L,0);
     p1.isGravitable = false;
-    p2 = new Planet(worldWidth/2, worldHeight/4,50,color(255,0,0),511111111111111L);
+    p2 = new Planet(worldWidth/2, worldHeight/4,50,color(255,0,0),511111111111111L,1);
     p2.velocity.x = 4;
     gravitables = new ArrayList<ActorGravitable>();
     ship = new Ship(worldWidth,worldHeight);
