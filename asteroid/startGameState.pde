@@ -134,8 +134,7 @@ public class StartGameState extends States
     @Override
     public void Execute()
     {
-      println("Config");
-      //State.CurrentState(StateEnum.GAME);
+      State.CurrentState(StateEnum.CONFIGURATION);
     }
     @Override
     public void Execute(Enum key){}

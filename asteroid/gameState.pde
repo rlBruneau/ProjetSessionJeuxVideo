@@ -9,6 +9,7 @@ public class GameState extends States
   private float worldWidth;
   private float worldHeight;
   private HUD hud;
+  public boolean isGeekActivated = false;
 
   public GameState(States state, InputManager inputManager)
   {

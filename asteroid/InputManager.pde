@@ -116,9 +116,7 @@ public class InputManager
         {
           k = (int)keyCode;
         }
-        println((int)UP);
         Keys.replace((KeyMap)keyToMap,k);
-        println(Keys.get(keyToMap));
         enterInput = false;
         selector.canMove = true;
       }
@@ -177,7 +175,6 @@ public class InputManager
     InitKeyMap();
     //SetKeyValue(key);
     this.selector = selector;
-    println(this.selector);
     enterInput = true;
     keyToMap = key;
     selector.canMove = false;

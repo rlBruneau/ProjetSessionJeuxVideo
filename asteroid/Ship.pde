@@ -49,6 +49,17 @@ public class Ship extends ActorGravitable
   @Override
   public void Update(float delta)
   {
+    if(acceleration.mag() > 0)
+    {
+      if(!soundManager.ReactorOn.isPlaying())
+      {
+        soundManager.ReactorOn.play();
+      }
+    }
+    else
+      soundManager.ReactorOn.stop();
+      
+  
     Rotate(delta);
     if(gravitables != null && gravitables.size() > 0)
       CalculateGravity(delta);

@@ -7,6 +7,7 @@ public class States
   private States PauseState;
   private States StartGameState;
   private States ControlState;
+  private States ConfigurationState;
   private InputManager inputManager;
   protected HashMap<KeyMap,Boolean> keyMap;
   //setters et getters
@@ -27,7 +28,6 @@ public class States
     {
       case GAME:
         CurrentState = GameState();
-        println(CurrentState);
         break;
       case START:
         CurrentState = StartGameState;
@@ -38,6 +38,11 @@ public class States
       case CONTROLS:
         CurrentState = ControlState;
         break;
+      case CONFIGURATION:
+        CurrentState = ConfigurationState;
+        println(CurrentState);
+        break;
+        
     }
     
   }
@@ -54,6 +59,9 @@ public class States
 
   public void ControlState(States state){CurrentState = state;}
   public States ControlState(){return ControlState;}
+
+  public void ConfigurationState(States state){CurrentState = state;}
+  public States ConfigurationState(){return ConfigurationState;}
 
   //fin attribut et getters/setters
   

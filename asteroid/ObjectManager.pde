@@ -13,6 +13,7 @@ public class ObjectManager
     State.GameState = new GameState(State, inputManager);
     State.PauseState = new PauseState(State, inputManager);
     State.ControlState = new ControlState(State, inputManager);
+    State.ConfigurationState = new ConfigurationState(State,inputManager);
     State.CurrentState = State.StartGameState;
     State.StateType(StateEnum.START);
   }

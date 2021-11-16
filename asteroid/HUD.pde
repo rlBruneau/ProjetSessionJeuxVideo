@@ -47,7 +47,6 @@ public class HUD extends GraphicObject
     public HUD(Ship ship)
     {
         this.ship = ship;
-        println(ship.position);
         arrow = new Arrow(ship);
     }
 
