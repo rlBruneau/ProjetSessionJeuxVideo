@@ -29,15 +29,21 @@ public class ConfigurationState extends States
   @Override
   public void Display()
   {
-      background(175);
-      Selector.Display(-1,-1);
-      DisplayMenuItems();
+    background(175);
+    Selector.Display(-1,-1);
+    DisplayMenuItems();
+    DisplaySoundBar();
   }
   @Override
   public void Update(float delta)
   {
-      Selector.Update(delta);
-      KeyManagement(delta);
+    Selector.Update(delta);
+    KeyManagement(delta);
+  }
+
+  private void DisplaySoundBar()
+  {
+
   }
 
   private void InititMenuItems()
@@ -67,13 +73,17 @@ public class ConfigurationState extends States
       {
         manageTimeKeyPress(KeyMap.ARROW_UP);
         if(!isSettingSound)
-            Selector.SelectingCursorUp();
+          Selector.SelectingCursorUp();
+        else
+          soundManager.SoundUp();
       }
       else if(keyMap.get(KeyMap.ARROW_DOWN))
       {
         manageTimeKeyPress(KeyMap.ARROW_DOWN);
         if(!isSettingSound)
-            Selector.SelectingCursorDown();
+          Selector.SelectingCursorDown();
+        else
+          soundManager.SoundDown();
       }
       else if(keyMap.get(KeyMap.SELECT))
       {

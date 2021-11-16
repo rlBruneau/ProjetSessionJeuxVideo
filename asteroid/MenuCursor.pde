@@ -34,10 +34,17 @@ public class MenuCursor<T extends Enum<T>> extends Actor
     {
       menuDown.push((Enum)list[i]);
     }
-    selectedOption = CursorCommands.get(MenuSections.START_GAME);
+    //selectedOption = CursorCommands.get(MenuSections.START_GAME);
+
+    
 
     this.CursorCommands = CursorCommands;
+    Map.Entry<Enum,Command> entry = CursorCommands.entrySet().iterator().next();
+    Enum key = entry.getKey();
+    selectedOption = entry.getValue();
+    
     fillColor = color(0,255,0);
+
   }
   @Override
   public void Update(float delta)
