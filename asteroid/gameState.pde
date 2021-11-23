@@ -52,6 +52,16 @@ public class GameState extends States
     p1.Update(delta);
     p2.Update(delta);
     TestMovements();
+    if(!ship.isAlive)
+    {
+      if(ship.Death(delta))
+      {
+        State.GameOverState = new GameOverState(State,inputManager);
+        State.CurrentState = State.GameOverState;
+        cam.xOff = 0;
+        cam.yOff = 0;
+      }
+    }
   }
   @Override
   public void Display()

@@ -22,6 +22,9 @@ public class Ship extends ActorGravitable
   public int landing = 0;
   private PVector testAngleBetweenShipAndPlanet = new PVector();
   private boolean hasAlreadyLanded = false;
+  private ArrayList<ExplodingParticles> particleGenerators = new ArrayList<ExplodingParticles>();
+  private float timeBeforeNextExplosion = 0;
+  private int nbOfExplosions = 10;
 
 
   public Ship(float worldWidth, float worldHeight)
@@ -67,6 +70,18 @@ public class Ship extends ActorGravitable
     CalculateSumForces(delta, forcesApplied);
     ManageScreenBonndary();
     ShootingPoint.Update(delta,this);
+
+    if(particleGenerators.size()>0)
+    {
+      for(int i=0;i<particleGenerators.size();i++)
+      {
+        if(particleGenerators.get(i).particles.size() > 0)
+          particleGenerators.get(i).Update(delta);
+        else
+          particleGenerators.remove(particleGenerators.get(i));
+      }
+    }
+    
   }
   private void ManageScreenBonndary()
   {
@@ -107,6 +122,14 @@ public class Ship extends ActorGravitable
     stroke(0,255,0);
     strokeWeight(4);
     strokeWeight(1);
+    if(particleGenerators.size()>0)
+    {
+      for(int i=0;i<particleGenerators.size();i++)
+      {
+        particleGenerators.get(i).Display(-1,-1);
+      }
+    }
+      
   }
 
   private void InitShip()
@@ -155,6 +178,25 @@ public class Ship extends ActorGravitable
     }
   }
 
+  public boolean Death(float delta)
+  {
+    timeBeforeNextExplosion -= delta;
+    if(timeBeforeNextExplosion <= 0)
+    {
+      nbOfExplosions -= 1;
+      if(nbOfExplosions==0)
+      {
+        return true;
+      }
+      Random random = new Random();
+      timeBeforeNextExplosion = (float)((random.nextDouble() + 0.1) * 0.5);
+      float xoff = (float)(random.nextDouble() * 15 -7);
+      float yoff = (float)(random.nextDouble() * 15 -7);
+      particleGenerators.add(new ExplodingParticles(xoff + position.x - cam.xOff, yoff + position.y - cam.yOff,2,new Color(random.nextInt(130) + 125,0,0,255),20));
+    }
+    return false;
+  }
+
   //*************************************************************
   //************INTERFACES METHODS*******************************
   //*************************************************************
@@ -173,16 +215,12 @@ public class Ship extends ActorGravitable
         {
           println("dead due to angle");
           println(PVector.angleBetween(testAngleBetweenShipAndPlanet,PVector.fromAngle(angle))-HALF_PI);
-          //isAlive = false;
+          isAlive = false;
+          onPlanetSurface(sender);
         }
         else
         {
-          float dist = radius + sender.radius;
-          PVector between = new PVector(position.x-sender.position.x,position.y-sender.position.y);
-          position.x = sender.position.x + (dist * cos(between.heading()));
-          position.y = sender.position.y + (dist * sin(between.heading()));
-          
-          velocity.set(sender.velocity.x, sender.velocity.y);
+          onPlanetSurface(sender);
           if(!hasAlreadyLanded)
           {
             landing += ((Planet)sender).landingPoints;
@@ -193,8 +231,18 @@ public class Ship extends ActorGravitable
       else
       {
         println("dead due to speed");
-        //isAlive = false;
+        onPlanetSurface(sender);
+        isAlive = false;
       }
     }
+  }
+  private void onPlanetSurface(Actor sender)
+  {
+    float dist = radius + sender.radius;
+    PVector between = new PVector(position.x-sender.position.x,position.y-sender.position.y);
+    position.x = sender.position.x + (dist * cos(between.heading()));
+    position.y = sender.position.y + (dist * sin(between.heading()));
+    
+    velocity.set(sender.velocity.x, sender.velocity.y);
   }
 }

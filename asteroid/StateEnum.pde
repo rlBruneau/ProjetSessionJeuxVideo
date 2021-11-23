@@ -4,5 +4,6 @@ public enum StateEnum
   PAUSE,
   START,
   CONTROLS,
-  CONFIGURATION
+  CONFIGURATION,
+  GAMEOVER
 }

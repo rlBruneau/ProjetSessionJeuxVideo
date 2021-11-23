@@ -2,7 +2,7 @@ public class Timer
 {
   private double timerLength;
   private float ellapsedTime;
-  private boolean isTicking;
+  public boolean isTicking = false;
   public Timer(double lengthMillis)
   {
     ellapsedTime = 0;
@@ -26,6 +26,7 @@ public class Timer
     if(isTicking)
     {
       ellapsedTime += delta * 1000;
+      
       if(ellapsedTime >= timerLength)
       {
         isTicking = false;

@@ -96,6 +96,7 @@ public class StartGameState extends States
   {
     Enum SendMenuType = MenuSections.START_GAME;
     Selector = new MenuCursor(SendMenuType.getDeclaringClass(),CursorCommandsMap); 
+    Selector.selectedOption = new StartGameCommand();
   }
   
   private void InitCommands()

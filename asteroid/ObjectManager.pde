@@ -14,6 +14,7 @@ public class ObjectManager
     State.PauseState = new PauseState(State, inputManager);
     State.ControlState = new ControlState(State, inputManager);
     State.ConfigurationState = new ConfigurationState(State,inputManager);
+    State.GameOverState = new GameOverState(State,inputManager);
     State.CurrentState = State.StartGameState;
     State.StateType(StateEnum.START);
   }

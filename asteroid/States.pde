@@ -8,6 +8,7 @@ public class States
   private States StartGameState;
   private States ControlState;
   private States ConfigurationState;
+  private States GameOverState;
   private InputManager inputManager;
   protected HashMap<KeyMap,Boolean> keyMap;
   //setters et getters
@@ -42,6 +43,10 @@ public class States
         CurrentState = ConfigurationState;
         println(CurrentState);
         break;
+        case GAMEOVER:
+      CurrentState = GameOverState;
+        println(CurrentState);
+        break;
         
     }
     
@@ -62,6 +67,9 @@ public class States
 
   public void ConfigurationState(States state){CurrentState = state;}
   public States ConfigurationState(){return ConfigurationState;}
+
+  public void GameOverState(States state){CurrentState = state;}
+  public States GameOverState(){return ConfigurationState;}
 
   //fin attribut et getters/setters
   

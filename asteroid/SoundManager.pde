@@ -18,16 +18,35 @@ public class SoundManager
         BackgroundMusic.loop();
     }
 
-    public void SoundDown()
+    public void SoundDown(ProgressBar volumeBar)
     {
-        if(volume < 100)
-        volume -= soundStep;
-        sound.volume(volume);
+        if(volume - soundStep > 0)
+        {
+            volume -= soundStep;
+            sound.volume(volume);
+            volumeBar.SetPersent(0,1,volume);
+        }
+        else
+        {
+            volume = 0;
+            sound.volume(volume);
+            volumeBar.SetPersent(0,1,volume);
+        }
     }
-    public void SoundUp()
+    public void SoundUp(ProgressBar volumeBar)
     {
-        if(volume > 0)
-        volume += soundStep;
-        sound.volume(volume);
+        if(volume + soundStep < 1)
+        {
+            volume += soundStep;
+            sound.volume(volume);
+            volumeBar.SetPersent(0,1,volume);
+        }
+        else
+        {
+            volume = 1;
+            sound.volume(volume);
+            volumeBar.SetPersent(0,1,volume);
+        }
+        
     }
 }
