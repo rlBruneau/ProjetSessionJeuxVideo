@@ -28,7 +28,7 @@ public class ConfigurationState extends States
       InitCommands();
       InitSelector();
       canTypeKey = new Timer();
-      InititMenuItems();
+      InitMenuItems();
 
       soundLabel = new Label(color(255),color(0),16,"Volume",5);
       volumeBar = new ProgressBar(width/2 - (volumeBarW/2), height/2 + volumeBarh, 
@@ -57,7 +57,7 @@ public class ConfigurationState extends States
     
   }
 
-  private void InititMenuItems()
+  private void InitMenuItems()
   {
     MenuMesures mm = new MenuMesures();
     menuItems = new MenuItem[configEnum.values().length];

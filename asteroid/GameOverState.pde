@@ -25,7 +25,7 @@ public class GameOverState extends States
     InitCommands();
     InitSelector();
     canTypeKey = new Timer();
-    InititMenuItems();
+    InitMenuItems();
 
     gameOverLabel = new Label(color(0), color(255), h1, gameOverString, 0);
   }
@@ -45,7 +45,7 @@ public class GameOverState extends States
     gameOverLabel.Display();
   }
 
-  private void InititMenuItems()
+  private void InitMenuItems()
   {
     MenuMesures mm = new MenuMesures();
     menuItems = new MenuItem[GameOverEnum.values().length];
