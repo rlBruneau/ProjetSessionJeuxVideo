@@ -24,7 +24,7 @@ public class StartGameState extends States
     InitCommands();
     InitSelector();
     canTypeKey = new Timer();
-    InititMenuItems();
+    InitMenuItems();
   }
   
   @Override
@@ -62,7 +62,7 @@ public class StartGameState extends States
     DisplayMenuItems();
   }
 
-  private void InititMenuItems()
+  private void InitMenuItems()
   {
     MenuMesures mm = new MenuMesures();
     menuItems = new MenuItem[MenuSections.values().length];
