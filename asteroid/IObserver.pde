@@ -1,4 +1,4 @@
-interface IObserverer
+interface IObserver
 {
     void AddCollidable(Actor obj);
     private void CallCollisionMethods(){}

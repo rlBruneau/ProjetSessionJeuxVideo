@@ -25,7 +25,7 @@ public class Circle extends GraphicObject
 }
 
 
-public class Planet extends ActorGravitable implements IObserverer
+public class Planet extends ActorGravitable implements IObserver
 {
   private Circle outline;
   private Circle crater;

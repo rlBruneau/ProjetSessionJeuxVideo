@@ -19,7 +19,7 @@ public class ControlState extends States
       InitCommands();
       InitSelector();
       canTypeKey = new Timer();
-      InititMenuItems();
+      InitMenuItems();
   }
   @Override
   public void Display()
@@ -35,7 +35,7 @@ public class ControlState extends States
       KeyManagement(delta);
   }
 
-  private void InititMenuItems()
+  private void InitMenuItems()
   {
     MenuMesures mm = new MenuMesures();
     menuItems = new MenuItem[KeyMap.values().length];
