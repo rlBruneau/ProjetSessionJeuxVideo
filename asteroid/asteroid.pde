@@ -17,6 +17,7 @@ public void setup()
   
   soundManager = new SoundManager(this);
   lastTick = 0;
+  //fullScreen();
   size(1200,920,P2D);
   inputManager = new InputManager();
   objectManager = new ObjectManager(inputManager);

@@ -155,7 +155,7 @@ public class InputManager
     else if(release == Keys.get(KeyMap.SPEED_UP))
       keyMap.replace(KeyMap.SPEED_UP,false);
     else if(release == Keys.get(KeyMap.BACK))
-      keyMap.replace(KeyMap.SPEED_UP,false);
+      keyMap.replace(KeyMap.BACK,false);
     else if(release == Keys.get(KeyMap.ARROW_UP))
       keyMap.replace(KeyMap.ARROW_UP,false);
     else if(release == Keys.get(KeyMap.ARROW_DOWN))

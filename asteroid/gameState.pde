@@ -9,7 +9,8 @@ public class GameState extends States
   private float worldWidth;
   private float worldHeight;
   private HUD hud;
-  public boolean isGeekActivated = false;
+
+
 
   public GameState(States state, InputManager inputManager)
   {
@@ -23,7 +24,8 @@ public class GameState extends States
     p2 = new Planet(worldWidth/2, worldHeight/4,50,color(255,0,0),511111111111111L,1);
     p2.velocity.x = 4;
     gravitables = new ArrayList<ActorGravitable>();
-    ship = new Ship(worldWidth,worldHeight);
+    println(State);
+    ship = new Ship(worldWidth,worldHeight,State);
     gravitables.add(p1);
     gravitables.add(p2);
     gravitables.add(ship);
@@ -36,6 +38,9 @@ public class GameState extends States
     camForMiniMap.init(ship,worldWidth,worldHeight);
 
     hud = new HUD(ship);
+
+    
+
   }
 
   @Override
@@ -62,6 +67,12 @@ public class GameState extends States
         cam.yOff = 0;
       }
     }
+    if(keyMap.get(KeyMap.BACK))
+    {
+      ship.isAlive = false;
+    }
+
+    
   }
   @Override
   public void Display()
@@ -80,6 +91,7 @@ public class GameState extends States
     p2.Display(p2.position.x/4, p2.position.y/4);
     ship.Display(ship.position.x/4, ship.position.y/4);
     scale(width*worldWidth,height*worldHeight);
+    
     
   } 
 

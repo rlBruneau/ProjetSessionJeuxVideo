@@ -3,7 +3,7 @@ public class Label extends GraphicObject{
     private color backgroundColor;
     private color textColor;
     private float textsize;
-    private String text;
+    public String text;
     private float padding;
     float scalar = 0.8; // Different for each font
 
@@ -48,5 +48,6 @@ public class Label extends GraphicObject{
         rect(x,y,textWidth(text) + (2 * padding),(textAscent() * scalar) + (2 * padding));
         fill(textColor);
         text(text,x + padding, y + padding + textAscent() * scalar);
+        textSize(16);
     }
 }

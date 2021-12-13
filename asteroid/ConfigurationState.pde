@@ -18,6 +18,7 @@ public class ConfigurationState extends States
   private ProgressBar volumeBar;
   private final float volumeBarW = width/3;
   private final float volumeBarh = 40;
+  public boolean isGeekActivated = false;
 
   private PVector pos = new PVector((width/2)-width/6,height/8);
   private PVector dimentions = new PVector(width/3,height - (height/4));
@@ -152,8 +153,8 @@ public class ConfigurationState extends States
     @Override
     public void Execute()
     {
-      ((GameState)State.GameState).isGeekActivated = !((GameState)State.GameState).isGeekActivated;
-      println(((GameState)State.GameState).isGeekActivated);
+      ((ConfigurationState)State.ConfigurationState).isGeekActivated = !((ConfigurationState)State.ConfigurationState).isGeekActivated;
+      println(((ConfigurationState)State.ConfigurationState).isGeekActivated);
     }
     @Override
     public void Execute(Enum key)

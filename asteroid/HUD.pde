@@ -43,6 +43,7 @@ public class HUD extends GraphicObject
     Rectangle landingPointLabelRect = new Rectangle(0,30,0,15);
     Ship ship;
     Arrow arrow;
+    float fpsAccumulator=0;
 
     public HUD(Ship ship)
     {
@@ -63,6 +64,8 @@ public class HUD extends GraphicObject
         arrow.Display(x,y);
         
         noStroke();
+        if(((ConfigurationState)ship.State.ConfigurationState).isGeekActivated)
+        ship.fpsLabel.Display();
     }
     public void Update(float delta)
     {
@@ -74,5 +77,12 @@ public class HUD extends GraphicObject
 
         landingPointLabelRect.position.x = width/2 - textWidth(speedLable)/2;
         landingPointLabelRect.rectangleW = textWidth(speedLable);
+
+        fpsAccumulator += delta;
+        if(fpsAccumulator > 1)
+        {
+            ship.fpsLabel.text ="fps : " + (int)(1/delta);
+            fpsAccumulator = 0;
+        }
     }
 }

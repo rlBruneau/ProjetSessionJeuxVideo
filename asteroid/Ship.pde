@@ -25,12 +25,17 @@ public class Ship extends ActorGravitable
   private ArrayList<ExplodingParticles> particleGenerators = new ArrayList<ExplodingParticles>();
   private float timeBeforeNextExplosion = 0;
   private int nbOfExplosions = 10;
+  private States State;
 
+    //debug attributes
+  private Label fpsLabel;
 
-  public Ship(float worldWidth, float worldHeight)
+  public Ship(float worldWidth, float worldHeight, States state)
   {
     super(width/2,height/2);
     //super(width/2,height-1);
+    this.State = state;
+    println(State);
 
     this.worldWidth = worldWidth;
     this.worldHeight = worldHeight;
@@ -48,6 +53,9 @@ public class Ship extends ActorGravitable
     ShootingPoint = new ShipShootingPoint(position.x,position.y);
     maxSpeed = MAX_SPEED;
     InitShip();
+
+    //debug initialise
+    fpsLabel = new Label(width-150, height-70, color(0,0,255,100), color(0,0,0), 25, "fps : " + (int)(1/delta), 10);
   }
   @Override
   public void Update(float delta)
@@ -82,6 +90,7 @@ public class Ship extends ActorGravitable
       }
     }
     
+
   }
   private void ManageScreenBonndary()
   {
@@ -129,7 +138,14 @@ public class Ship extends ActorGravitable
         particleGenerators.get(i).Display(-1,-1);
       }
     }
-      
+
+    if(((ConfigurationState)State.ConfigurationState).isGeekActivated)
+    {
+      noStroke();
+      fill(255,0,0,100);
+      ellipse(x, y, radius*2, radius*2);
+    }
+     
   }
 
   private void InitShip()
